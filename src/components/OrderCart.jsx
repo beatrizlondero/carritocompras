@@ -1,22 +1,21 @@
-// import React from 'react';
 import { Typography, List, ListItem, ListItemText, Button } from '@mui/material';
 import { orange } from '@mui/material/colors';
 
 import React, { useState } from 'react';
 
 const OrderCart = ({ cart, removeFromCart, calculateTotal, clearCart, sortOrder }) => {
-    // Function to compare product prices for sorting
+    // Function para ordenar por precio
     const comparePrices = (a, b) => {
       if (sortOrder === 'asc') {
         return a.price - b.price;
       } else if (sortOrder === 'desc') {
         return b.price - a.price;
       } else {
-        return 0; // Default case, no sorting
+        return 0; 
       }
     };
   
-    // Sort the cart based on the selected order
+    // Ordenar los productos segun los precios
     const sortedCart = [...cart].sort(comparePrices);
   
     return (

@@ -1,6 +1,6 @@
 //Footer de la pagina
 
-export default function Stats(){
+export default function Footer(){
     const fecha = new Date().getFullYear()
     return(
         <footer className="stats">

@@ -1,7 +1,5 @@
-//PARA ORDENAR LOS PRODUCTOS POR RECIO
-// import React from 'react';
+//PARA ORDENAR LOS PRODUCTOS POR RECIO 
 import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@mui/material';
-import { orange } from '@mui/material/colors';
 
 const ProductSorting = ({ sortOrder, onSortChange }) => {
   const handleSortChange = (event) => {

@@ -1,4 +1,4 @@
-// ProductCard.jsx
+// carrito de compras
 import React from 'react';
 import { Card, CardContent, CardMedia, Typography, Button } from '@mui/material';
 
