@@ -1,9 +1,12 @@
 import { Typography, List, ListItem, ListItemText, Button } from '@mui/material';
 import { orange } from '@mui/material/colors';
+import CheckoutModal from './CheckoutModal'
 
 import React, { useState } from 'react';
 
 const OrderCart = ({ cart, removeFromCart, calculateTotal, clearCart, sortOrder }) => {
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+
     // Function para ordenar por precio
     const comparePrices = (a, b) => {
       if (sortOrder === 'asc') {
@@ -14,6 +17,16 @@ const OrderCart = ({ cart, removeFromCart, calculateTotal, clearCart, sortOrder 
         return 0; 
       }
     };
+
+    // Function to open the checkout modal
+  const handleOpenCheckout = () => {
+    setIsCheckoutOpen(true);
+  };
+
+  // Function to close the checkout modal
+  const handleCloseCheckout = () => {
+    setIsCheckoutOpen(false);
+  };
   
     // Ordenar los productos segun los precios
     const sortedCart = [...cart].sort(comparePrices);
@@ -21,7 +34,7 @@ const OrderCart = ({ cart, removeFromCart, calculateTotal, clearCart, sortOrder 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '20px', backgroundColor: '#ffebb3' }}>
         <Typography variant="h3" gutterBottom color={orange[900]}>
-          Shopping Cart
+          Carrito de Compra
         </Typography>
         <List>
           {sortedCart.map((product, index) => (
@@ -43,9 +56,27 @@ const OrderCart = ({ cart, removeFromCart, calculateTotal, clearCart, sortOrder 
         <Typography variant="h3" gutterBottom>
           Total: ${calculateTotal().toFixed(2)}
         </Typography>
-        <Button variant="contained" color="warning" size="large" onClick={clearCart}>
-          Clear Cart
-        </Button>
+        <div >
+
+          <Button variant="contained" color="warning" size="large" padding="10px" onClick={clearCart}>
+            Vaciar el Carro
+          </Button>
+        </div>
+        <div className='buttons'>
+
+          <Button variant="contained" color="success" size="large" padding="10px" onClick={handleOpenCheckout}>
+            Ir al Pago
+          </Button>
+            {isCheckoutOpen && (
+            <CheckoutModal
+              cart={cart}
+              handleCloseCheckout={handleCloseCheckout}
+              totalAmount={calculateTotal().toFixed(2)}
+              clearCart={clearCart}
+            />
+           )}
+         </div>
+
       </div>
     );
   };

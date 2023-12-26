@@ -19,7 +19,7 @@ const ProductCard = ({ product, addToCart }) => {
             <Typography variant="h4">{product.title}</Typography>
         </div>
         <Typography variant="h4" color="text.secondary">
-          Price: ${product.price}
+          Precio: ${product.price}
         </Typography>
         <Button variant="contained" size="large" color="success" onClick={() => addToCart(product)}>
           Comprar
