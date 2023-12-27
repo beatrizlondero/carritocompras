@@ -15,15 +15,16 @@ const App = () => {
   const [sortOrder, setSortOrder] = useState('asc');
   const [sortedProducts, setSortedProducts] = useState([]);
 
+  
   useEffect(() => {
     fetch(`${API_BASE_URL}/products`)
       .then((response) => response.json())
-      .then((data) => setProducts(data))
+      .then((data) => setProducts(data.map((product) => ({ ...product, quantity: 10 }))))
       .catch((error) => console.error('Error fetching products:', error));
   }, []);
 
   useEffect(() => {
-    // ordenar los productos por precio
+    // order products by price
     const sortedProductsCopy = [...products];
     if (sortOrder === 'asc') {
       sortedProductsCopy.sort((a, b) => a.price - b.price);
@@ -35,12 +36,31 @@ const App = () => {
 
   const addToCart = (product) => {
     setCart([...cart, product]);
+    // Decrease the quantity of the added product
+    setProducts((prevProducts) =>
+      prevProducts.map((prevProduct) =>
+        prevProduct.id === product.id
+          ? { ...prevProduct, quantity: prevProduct.quantity - 1 }
+          : prevProduct
+      )
+    );
   };
 
   const removeFromCart = (index) => {
-    const newCart = [...cart];
-    newCart.splice(index, 1);
-    setCart(newCart);
+    const removedProduct = cart[index];
+    setCart((prevCart) => {
+      const newCart = [...prevCart];
+      newCart.splice(index, 1);
+      return newCart;
+    });
+    // Increase the quantity of the removed product
+    setProducts((prevProducts) =>
+      prevProducts.map((prevProduct) =>
+        prevProduct.id === removedProduct.id
+          ? { ...prevProduct, quantity: prevProduct.quantity + 1 }
+          : prevProduct
+      )
+    );
   };
 
   const calculateTotal = () => {

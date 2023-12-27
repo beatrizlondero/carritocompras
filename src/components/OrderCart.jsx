@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import {
   Typography,
   List,
-  ListItem,
-  ListItemText,
   Button,
 } from '@mui/material';
 import { orange } from '@mui/material/colors';
@@ -62,7 +60,7 @@ const OrderCart = ({ cart, removeFromCart, calculateTotal, clearCart, sortOrder 
                   {`$${product.price} x ${productQuantities[product.id].quantity}`}
                 </span>
                 <Button variant="outlined" color="warning" size="large" onClick={() => removeFromCart(cart.indexOf(product))}>
-                  Remove
+                  Quitar
                 </Button>
               </li>
             </div>
